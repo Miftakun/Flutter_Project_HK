@@ -8,4 +8,4 @@ void main(List<String> args) {
   final sekarang = DateTime.now();
   print(sekarang);
   print(sekarang.manusiawi());
-};
+}
