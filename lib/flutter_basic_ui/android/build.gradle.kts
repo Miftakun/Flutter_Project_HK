@@ -12,8 +12,10 @@ subprojects {
     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
     project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
-subprojects {
-    project.evaluationDependsOn(":app")
+
+tasks.withType<JavaCompile> {
+    sourceCompatibility = "17.0.2"
+    targetCompatibility = "17.0.2"
 }
 
 tasks.register<Delete>("clean") {

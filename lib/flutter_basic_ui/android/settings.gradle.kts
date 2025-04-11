@@ -3,7 +3,7 @@ pluginManagement {
         val properties = java.util.Properties()
         file("local.properties").inputStream().use { properties.load(it) }
         val flutterSdkPath = properties.getProperty("flutter.sdk")
-        require(flutterSdkPath != null) { "flutter.sdk not set in local.properties" }
+        require(flutterSdkPath != null) { "flutter.sdk property is missing in local.properties" }
         flutterSdkPath
     }
 
@@ -22,4 +22,4 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.8.22" apply false
 }
 
-include(":app")
+include(":flutter_basic_ui")

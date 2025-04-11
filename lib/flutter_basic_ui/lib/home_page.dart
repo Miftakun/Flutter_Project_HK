@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 //  StatefulWidget adalah widget yang dapat berubah seiring waktu
 //  StatelessWidget adalah widget yang tidak dapat berubah seiring waktu
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
