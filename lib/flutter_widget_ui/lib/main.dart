@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_ui/widgets/sample_listview.dart';
+import 'package:flutter_widget_ui/widgets/sample_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: SampleListView(),
+      home: const SampleCard(),
     );
   }
 }
