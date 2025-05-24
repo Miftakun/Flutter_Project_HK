@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_ui/widgets/sample_card.dart';
 import 'package:flutter_widget_ui/widgets/sample_sizedbox.dart';
 
 void main() {
