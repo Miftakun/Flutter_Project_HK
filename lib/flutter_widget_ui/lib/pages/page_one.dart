@@ -142,6 +142,24 @@ class _PageOneState extends State<PageOne> {
                     }
                   },
                 ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/second');
+                      }, // Add your onTap logic here
+                      child: const Text('Klik sekali'),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        print('onTap 2');
+                      },
+                      child: const Text('Klik dua kali'),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
