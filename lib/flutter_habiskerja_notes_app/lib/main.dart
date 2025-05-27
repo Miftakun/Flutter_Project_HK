@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_habiskerja_notes_app/pages/login_page.dart';
+import 'package:flutter_habiskerja_notes_app/utils/user_shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserSharedPreferences.init();
   runApp(const MyApp());
 }
 
@@ -19,3 +22,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+/*
+Pastikan sudah memanggil:
+await UserSharedPreferences.init();
+di main() sebelum runApp, seperti pada kode di atas.
+*/

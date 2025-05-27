@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_habiskerja_notes_app/pages/home_page.dart';
+import 'package:flutter_habiskerja_notes_app/utils/user_shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,10 +11,31 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _namaController = TextEditingController();
-  final TextEditingController _pinController = TextEditingController();
+  late TextEditingController _namaController = TextEditingController();
+  late TextEditingController _pinController = TextEditingController();
   bool _obscurePin = true;
   bool _isLoading = false;
+  bool isPinExists = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _namaController = TextEditingController();
+    _pinController = TextEditingController();
+    String? pin = UserSharedPreferences.getPin();
+    if (pin != null && pin.isNotEmpty) {
+      isPinExists = true;
+    } else {
+      isPinExists = false;
+    }
+  }
+
+  @override
+  void dispose() {
+    _namaController.dispose();
+    _pinController.dispose();
+    super.dispose();
+  }
 
   void _login() async {
     if (_formKey.currentState!.validate()) {
@@ -112,7 +135,20 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: _isLoading ? null : _login,
+                    onPressed: () async {
+                      await UserSharedPreferences.setUser(
+                        name: _namaController.text,
+                        pin: _pinController.text,
+                      );
+                      if (!mounted) return;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const HomePage();
+                          },
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
@@ -125,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                               color: Colors.white,
                             )
                             : const Text(
-                              'Login',
+                              'Masuk',
                               style: TextStyle(fontSize: 20),
                             ),
                   ),
