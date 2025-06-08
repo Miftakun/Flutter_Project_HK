@@ -45,7 +45,20 @@ class _DetailPageState extends State<DetailPage> {
             child: const Icon(Icons.edit_note),
           ),
           const SizedBox(width: 8),
-          const Icon(Icons.delete),
+          InkWell(
+            onTap: () async {
+              await NotesDatabase.instance.deleteNote(widget.note.id!);
+              Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Catatan "${widget.note.title}" berhasil dihapus',
+                  ),
+                ),
+              );
+            },
+            child: const Icon(Icons.delete),
+          ),
           const SizedBox(width: 16),
         ],
       ),
