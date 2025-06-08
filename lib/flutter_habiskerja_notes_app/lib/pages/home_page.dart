@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_habiskerja_notes_app/models/note.dart';
+import 'package:flutter_habiskerja_notes_app/pages/detail_page.dart';
 import 'package:flutter_habiskerja_notes_app/pages/form_page.dart';
 import 'package:flutter_habiskerja_notes_app/utils/notes_database.dart';
 import 'package:flutter_habiskerja_notes_app/widgets/card_widget.dart';
@@ -83,7 +84,20 @@ class _HomePageState extends State<HomePage> {
                     mainAxisSpacing: 8,
                   ),
                   itemBuilder: (context, index) {
-                    return CardWidget(notes[index], index: index);
+                    return InkWell(
+                      onTap: () async {
+                        // Ganti dengan navigasi ke halaman detail yang sesuai
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return DetailPage(note: notes[index]);
+                            },
+                          ),
+                        );
+                        refreshNotes();
+                      },
+                      child: CardWidget(notes[index], index: index),
+                    );
                   },
                   itemCount: notes.length,
                 ),

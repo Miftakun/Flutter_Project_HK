@@ -1,9 +1,12 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:flutter_habiskerja_notes_app/models/note.dart';
 import 'package:flutter_habiskerja_notes_app/utils/notes_database.dart';
 
 class FormPage extends StatefulWidget {
-  const FormPage({super.key});
+  final Note? note;
+  const FormPage({Key? key, this.note}) : super(key: key);
 
   @override
   State<FormPage> createState() => _FormPageState();
@@ -12,6 +15,30 @@ class FormPage extends StatefulWidget {
 class _FormPageState extends State<FormPage> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.note != null) {
+      titleController.text = widget.note!.title;
+      descriptionController.text = widget.note!.description;
+    }
+    super.initState();
+  }
+
+  Future updateNote() async {
+    final note = widget.note!.copyWith(
+      title: titleController.text,
+      description: descriptionController.text,
+      time: DateTime.now(),
+    );
+    await NotesDatabase.instance.updateNote(note);
+    Navigator.of(context).pop();
+    Navigator.pop(context, note);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Catatan "${note.title}" berhasil diperbarui')),
+    );
+  }
 
   Future addNote() async {
     final note = Note(
@@ -32,7 +59,16 @@ class _FormPageState extends State<FormPage> {
       appBar: AppBar(
         title: const Text('Form Page'),
         actions: [
-          InkWell(onTap: addNote, child: const Icon(Icons.save)),
+          InkWell(
+            onTap: () {
+              if (widget.note != null) {
+                updateNote();
+              } else {
+                addNote();
+              }
+            },
+            child: const Icon(Icons.save),
+          ),
 
           SizedBox(width: 16),
         ],

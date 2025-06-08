@@ -44,4 +44,10 @@ class Note {
 
   factory Note.fromJson(String source) =>
       Note.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  String get content => description;
+
+  get createdAt => null;
+
+  get updatedAt => null;
 }
